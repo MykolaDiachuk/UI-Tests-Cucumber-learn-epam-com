@@ -68,7 +68,7 @@ public class PageElement implements WebElement {
     }
 
     public WebElement refreshElement() {
-        this.element = DriverManager.getDriver().findElement(locator);
+        this.element = waitForElementToBePresent(locator).getElement();
         return element;
     }
 

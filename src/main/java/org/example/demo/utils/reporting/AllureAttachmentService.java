@@ -1,6 +1,7 @@
 package org.example.demo.utils.reporting;
 
 import io.qameta.allure.Allure;
+import io.qameta.allure.Attachment;
 import org.example.demo.utils.driver.DriverManager;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -19,17 +20,23 @@ public class AllureAttachmentService {
     public static void attachScreenshot() {
         try {
             byte[] screenshot = ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES);
-            Allure.addAttachment("Failure Screenshot", "image/png", new ByteArrayInputStream(screenshot), ".png");
+            Allure.step("Attach failure screenshot", () -> {
+                Allure.getLifecycle().addAttachment(
+                        "Failure Screenshot", "image/png", ".png", new ByteArrayInputStream(screenshot));
+            });
         } catch (Exception e) {
             logger.error("Failed to attach screenshot: {}", e.getMessage());
         }
     }
 
+
     public static void attachLogs() {
         try {
             byte[] logBytes = Files.readAllBytes(Paths.get(LOG_FILE_PATH));
-            Allure.addAttachment("Execution Logs", "text/plain", new ByteArrayInputStream(logBytes), ".log");
-            logger.info("Logs attached to Allure report");
+            Allure.step("Attach execution logs", () -> {
+                Allure.getLifecycle().addAttachment(
+                        "Execution Logs", "text/plain", ".log", new ByteArrayInputStream(logBytes));
+            });
         } catch (IOException e) {
             logger.error("Failed to attach logs: {}", e.getMessage());
         }

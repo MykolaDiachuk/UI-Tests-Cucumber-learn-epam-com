@@ -1,7 +1,7 @@
 package org.example.demo.pages;
 
 import org.example.demo.elementcore.elements.PageElement;
-import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +28,7 @@ public class HomePage extends BasePage {
     public void acceptCookies() {
         try {
             cookieAcceptButton.waitUntilClickable().click();
-        } catch (NoSuchElementException e) {
+        } catch (TimeoutException e) {
             logger.warn("Cookie accept button not found, skipping");
         }
     }
