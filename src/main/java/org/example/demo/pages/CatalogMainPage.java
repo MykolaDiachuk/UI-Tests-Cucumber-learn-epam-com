@@ -69,13 +69,13 @@ public class CatalogMainPage extends BasePage {
     public List<CourseDTO> getAllVisibleCourses() {
         logger.info("Collecting all visible courses info");
 
-        try {
+        /*try {
             Thread.sleep(1500);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
-        //waitForElementsToVanish(courseCards.getElements());
+        waitForElementsToVanish(courseCards.getElements());
 
         try {
             return courseCards.waitUntilPresent().getElements().stream()

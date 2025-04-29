@@ -24,14 +24,14 @@ import org.testng.xml.XmlSuite;
 public class RunCucumberTest extends AbstractTestNGCucumberTests {
 
     //To control the number of threads in tests.
-    // When running through Maven, the value in this method is used, so it should be removed
-    @BeforeClass(alwaysRun = true)
+    // When running through Maven, the value in this method is used, so method should be removed
+   /* @BeforeClass(alwaysRun = true)
     public void setupParallelism(ITestContext context) {
         int threadCount = Integer.parseInt(System.getProperty("threadCount", "6"));
         System.setProperty("dataproviderthreadcount", String.valueOf(threadCount));
         context.getCurrentXmlTest().getSuite().setParallel(XmlSuite.ParallelMode.METHODS);
         context.getCurrentXmlTest().getSuite().setThreadCount(threadCount);
-    }
+    }*/
 
     @Override
     @DataProvider(parallel = true)

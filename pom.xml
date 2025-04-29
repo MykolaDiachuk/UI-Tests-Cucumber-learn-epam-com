@@ -15,7 +15,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <aspectj.version>1.9.22.1</aspectj.version>
         <allure.version>2.29.1</allure.version>
-        <threadCount>2</threadCount>
+        <threadCount>4</threadCount>
         <suiteXmlFile>src/test/resources/CucumberCatalogPageSuit.xml</suiteXmlFile>
         <suiteDir>src/test/resources/</suiteDir>
         <suiteName>CucumberCatalogPageSuit.xml</suiteName>

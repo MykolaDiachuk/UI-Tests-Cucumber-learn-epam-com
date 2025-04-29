@@ -1,6 +1,5 @@
 package org.example.demo.tests.steps.hooks;
 
-import io.cucumber.java.After;
 import io.cucumber.java.AfterStep;
 import io.cucumber.java.BeforeAll;
 import io.cucumber.java.Scenario;

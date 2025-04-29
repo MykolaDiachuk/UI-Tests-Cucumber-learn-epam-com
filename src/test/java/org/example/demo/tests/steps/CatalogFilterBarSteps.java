@@ -7,7 +7,6 @@ import org.example.demo.enums.Filters;
 
 import org.example.demo.pages.CatalogMainPage;
 import org.example.demo.tests.steps.hooks.CatalogPageHooks;
-import org.example.demo.tests.steps.hooks.TestHooks;
 
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;

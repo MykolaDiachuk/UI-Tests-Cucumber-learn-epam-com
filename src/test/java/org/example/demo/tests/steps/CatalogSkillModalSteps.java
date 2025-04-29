@@ -6,7 +6,7 @@ import io.cucumber.java.en.When;
 import org.example.demo.dtos.CourseDTO;
 import org.example.demo.pages.CatalogMainPage;
 import org.example.demo.tests.steps.hooks.CatalogPageHooks;
-import org.example.demo.tests.steps.hooks.TestHooks;
+
 
 import java.util.List;
 

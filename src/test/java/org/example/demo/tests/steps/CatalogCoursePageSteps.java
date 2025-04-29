@@ -4,8 +4,6 @@ import io.cucumber.java.en.*;
 import org.example.demo.pages.CatalogMainPage;
 import org.example.demo.pages.CourseEntityPage;
 import org.example.demo.tests.steps.hooks.CatalogPageHooks;
-import org.example.demo.tests.steps.hooks.TestHooks;
-
 
 import static org.assertj.core.api.Assertions.assertThat;
 

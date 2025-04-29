@@ -1,12 +1,12 @@
-﻿# UI-Tests-GEN2-learn-epam-com
+﻿# UI-Tests-Cucumber-learn-epam-com
 
 ### Available Settings
 
-| Property      | Description                                | Example Values                                                      | Default Value            |
-|---------------|--------------------------------------------|---------------------------------------------------------------------|--------------------------|
-| `suiteName`   | Name of the TestNG suite XML file to run   | `smoke-suite.xml`, `regression-suite.xml`, `catalog-test-suite.xml` | `catalog-test-suite.xml` |
-| `threadCount` | Number of threads to run tests in parallel | `1`, `2`, `6`, `10`                                                 | `4`                      |
-| `env`         | Type of environment                        | `qa`, `dev`                                                         | `qa`                     |
+| Property      | Description                                | Example Values                                                    | Default Value            |
+|---------------|--------------------------------------------|-------------------------------------------------------------------|--------------------------|
+| `suiteName`   | Name of the TestNG suite XML file to run   | `CucumberCatalogPageSuit.xml` | `CucumberCatalogPageSuit.xml` |
+| `threadCount` | Number of threads to run tests in parallel | `1`, `2`, `6`, `10`                                               | `4`                      |
+| `env`         | Type of environment                        | `qa`, `dev`                                                       | `qa`                     |
 
 
 ---
@@ -16,7 +16,7 @@
 To run all tests in parallel use:
 
 ```bash
-mvn clean test -DsuiteName="catalog-test-suite.xml" -DthreadCount=6
+mvn clean test -DthreadCount=6
 ```
 ---
 After test execution, you can generate the Allure report with:
