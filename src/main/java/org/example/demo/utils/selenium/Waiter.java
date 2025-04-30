@@ -2,18 +2,23 @@ package org.example.demo.utils.selenium;
 
 import org.example.demo.elementcore.elements.PageElement;
 import org.example.demo.elementcore.factory.WrapperFactory;
+import org.example.demo.pages.CatalogMainPage;
 import org.example.demo.utils.driver.DriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
 public class Waiter {
+    private static final Logger logger = LoggerFactory.getLogger(Waiter.class);
 
-    private static final Duration TIMEOUT = Duration.ofSeconds(15);
+    private static final Duration TIMEOUT = Duration.ofSeconds(8);
     private static final Duration POLLING_INTERVAL = Duration.ofMillis(500);
 
     private Waiter() {
@@ -59,6 +64,7 @@ public class Waiter {
     public static void waitForAllElementsToBeInvisible(By locator) {
         getWait().until(ExpectedConditions.invisibilityOfElementLocated(locator));
     }
+
     public static void waitForAllElementsToBeInvisible(PageElement element) {
         getWait().until(ExpectedConditions.invisibilityOf(element.getElement()));
     }
@@ -87,6 +93,16 @@ public class Waiter {
     public static void waitForElementsToVanish(List<PageElement> elements) {
         for (PageElement el : elements) {
             waitForElementToVanish(el.getElement());
+        }
+    }
+
+    public static void waitSoftForCondition(BooleanSupplier condition) {
+        try {
+            getFluentWait()
+                    .ignoring(StaleElementReferenceException.class)
+                    .until(driver -> condition.getAsBoolean());
+        } catch (TimeoutException e) {
+            logger.warn("Condition not met within timeout {}", TIMEOUT);
         }
     }
 

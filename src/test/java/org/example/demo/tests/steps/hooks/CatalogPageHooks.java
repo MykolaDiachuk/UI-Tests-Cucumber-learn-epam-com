@@ -11,14 +11,14 @@ public class CatalogPageHooks {
     @Getter
     public static CatalogMainPage catalogMainPage;
 
-    @Given("I am on the catalog page")
-    public void i_am_on_the_catalog_page() {
+    @Given("User on the catalog page")
+    public void user_on_the_catalog_page() {
         HomePage homePage = new HomePage();
         homePage.acceptCookies();
         catalogMainPage = homePage.goToCatalog();
     }
 
-    @When("I select filters by language {string}, effort {string}, and level {string}")
+    @When("User select filters by language {string}, effort {string}, and level {string}")
     public void i_select_filters(String language, String effort, String level) {
         catalogMainPage
                 .selectCheckbox(language)

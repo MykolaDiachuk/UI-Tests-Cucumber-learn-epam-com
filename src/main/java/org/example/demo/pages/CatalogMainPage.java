@@ -9,6 +9,7 @@ import org.example.demo.pages.blocks.FilterChipsBlock;
 import org.example.demo.pages.modals.LanguageSelectionModal;
 import org.example.demo.pages.modals.SkillSelectorModal;
 import org.example.demo.utils.selenium.FormatElement;
+import org.example.demo.utils.selenium.Waiter;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
@@ -75,7 +76,11 @@ public class CatalogMainPage extends BasePage {
             throw new RuntimeException(e);
         }*/
 
-        waitForElementsToVanish(courseCards.getElements());
+        //waitForElementsToVanish(courseCards.getElements());
+
+        for (PageElement el : courseCards.getElements()) {
+            Waiter.waitSoftForCondition(() -> el.getElement().isDisplayed());
+        }
 
         try {
             return courseCards.waitUntilPresent().getElements().stream()

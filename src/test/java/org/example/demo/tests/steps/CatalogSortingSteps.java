@@ -18,24 +18,24 @@ public class CatalogSortingSteps {
     private final CatalogMainPage catalogMainPage = CatalogPageHooks.getCatalogMainPage();
     private List<String> actualCourseTitles;
 
-    @When("I select descent sorting by {string}")
+    @When("User select descent sorting by {string}")
     public void i_select_descent_sorting(String criteria) {
         catalogMainPage.selectDescentSortBy(criteria);
     }
 
-    @When("I select ascent sorting by {string}")
+    @When("User select ascent sorting by {string}")
     public void i_select_ascent_sorting(String criteria) {
         catalogMainPage.selectAscentSortBy(criteria);
     }
 
-    @And("I save all course titles")
+    @And("User save all course titles")
     public void i_save_all_course_titles() {
         actualCourseTitles = catalogMainPage.getAllVisibleCourses().stream()
                 .map(CourseDTO::getTitle)
                 .toList();
     }
 
-    @Then("courses should be sorted in descending order")
+    @Then("Verify courses should be sorted in descending order")
     public void courses_should_be_sorted_desc() {
         List<String> sortedCourseTitles = new ArrayList<>(actualCourseTitles);
         sortedCourseTitles.sort(String::compareToIgnoreCase);
@@ -43,7 +43,7 @@ public class CatalogSortingSteps {
         assertThat(actualCourseTitles).isEqualTo(sortedCourseTitles);
     }
 
-    @Then("courses should be sorted in ascending order")
+    @Then("Verify courses should be sorted in ascending order")
     public void courses_should_be_sorted_asc() {
         List<String> sortedCourseTitles = new ArrayList<>(actualCourseTitles);
         sortedCourseTitles.sort(String::compareToIgnoreCase);

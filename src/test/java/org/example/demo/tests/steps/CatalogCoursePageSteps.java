@@ -13,7 +13,7 @@ public class CatalogCoursePageSteps {
     private CourseEntityPage courseEntityPage;
     private String selectedCourseName;
 
-    @Then("I search for course {string}")
+    @Then("User search for course {string}")
     public void i_search_for_course(String string) {
         this.selectedCourseName = string;
 
@@ -24,7 +24,7 @@ public class CatalogCoursePageSteps {
                 });
     }
 
-    @Then("the course should be visible in the catalog")
+    @Then("Verify the course should be visible in the catalog")
     public void the_course_should_be_visible_in_the_catalog() {
         boolean exists = catalogMainPage.getAllVisibleCourses()
                 .stream()
@@ -33,12 +33,12 @@ public class CatalogCoursePageSteps {
         assertThat(exists).as("Course is present").isTrue();
     }
 
-    @Then("I open the course page")
+    @Then("User open the course page")
     public void i_open_the_course_page() {
         courseEntityPage = catalogMainPage.goToCourse(selectedCourseName);
     }
 
-    @Then("the course page title should be {string}")
+    @Then("Verify the course page title should be {string}")
     public void the_course_page_title_should_be(String string) {
         assertThat(courseEntityPage.getTitle()).isEqualTo(string);
     }

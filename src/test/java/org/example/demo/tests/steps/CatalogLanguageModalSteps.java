@@ -1,6 +1,7 @@
 package org.example.demo.tests.steps;
 
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.example.demo.pages.CatalogMainPage;
@@ -14,36 +15,37 @@ public class CatalogLanguageModalSteps {
 
     private final CatalogMainPage catalogMainPage = CatalogPageHooks.getCatalogMainPage();
 
-    @When("I select languages in modal:")
-    public void i_select_languages_in_modal(List<String> languages) {
+    @When("User select languages in modal:")
+    public void user_select_languages_in_modal(DataTable dataTable) {
+        List<String> languages = dataTable.asList();
         catalogMainPage.openLanguageSelectionModal()
                 .selectLanguages(languages.toArray(new String[0]))
                 .clickSelect();
     }
 
-    @Then("languages {string}, {string}, {string} should be selected")
-    public void selected_languages_should_be(String lang1, String lang2, String lang3) {
-        assertThat(catalogMainPage.isLanguageSelected(lang1)).isTrue();
-        assertThat(catalogMainPage.isLanguageSelected(lang2)).isTrue();
-        assertThat(catalogMainPage.isLanguageSelected(lang3)).isTrue();
+    @Then("Verify Languages should be selected:")
+    public void selected_languages_should_be(DataTable languages) {
+        assertThat(languages.asList()).allSatisfy(
+                lang -> assertThat(catalogMainPage.isLanguageSelected(lang)).isTrue()
+        );
     }
 
-    @Then("all visible courses should have language codes {string}, {string}, {string}")
-    public void all_courses_should_have_languages(String code1, String code2, String code3) {
+    @Then("Verify all visible courses should have language codes:")
+    public void all_courses_should_have_languages(DataTable languages) {
         assertThat(catalogMainPage.getAllVisibleCourses())
-                .allSatisfy(course -> assertThat(course.getLanguage()).isIn(code1, code2, code3));
+                .allSatisfy(course -> assertThat(course.getLanguage()).isIn(languages.asList()));
     }
 
-    @Then("languages {string}, {string}, {string} should not be selected")
-    public void unselected_languages_should_be(String lang1, String lang2, String lang3) {
-        assertThat(catalogMainPage.isLanguageSelected(lang1)).isFalse();
-        assertThat(catalogMainPage.isLanguageSelected(lang2)).isFalse();
-        assertThat(catalogMainPage.isLanguageSelected(lang3)).isFalse();
+    @Then("Verify languages should not be selected:")
+    public void unselected_languages_should_be(DataTable languages) {
+        assertThat(languages.asList()).allSatisfy(
+                lang -> assertThat(catalogMainPage.isLanguageSelected(lang)).isFalse()
+        );
     }
 
-    @Then("no visible course should have language codes {string}, {string}, {string}")
-    public void all_courses_should_not_have_languages(String code1, String code2, String code3) {
+    @Then("Verify no visible course should have language codes:")
+    public void all_courses_should_not_have_languages(DataTable languages) {
         assertThat(catalogMainPage.getAllVisibleCourses())
-                .allSatisfy(course -> assertThat(course.getLanguage()).isNotIn(code1, code2, code3));
+                .allSatisfy(course -> assertThat(course.getLanguage()).isNotIn(languages.asList()));
     }
 }

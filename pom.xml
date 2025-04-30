@@ -19,7 +19,7 @@
         <suiteXmlFile>src/test/resources/CucumberCatalogPageSuit.xml</suiteXmlFile>
         <suiteDir>src/test/resources/</suiteDir>
         <suiteName>CucumberCatalogPageSuit.xml</suiteName>
-        <environment>dev</environment>
+        <environment>qa</environment>
     </properties>
 
     <dependencyManagement>

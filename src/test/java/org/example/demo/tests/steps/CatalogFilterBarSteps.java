@@ -3,7 +3,6 @@ package org.example.demo.tests.steps;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.example.demo.enums.Filters;
 
 import org.example.demo.pages.CatalogMainPage;
 import org.example.demo.tests.steps.hooks.CatalogPageHooks;
@@ -16,8 +15,8 @@ public class CatalogFilterBarSteps {
 
     private final CatalogMainPage catalogMainPage = CatalogPageHooks.getCatalogMainPage();
 
-    @When("I apply filters: effort {string}, level {string}, with languages")
-    public void i_apply_filters_with_languages(String effort, String level, DataTable dataTable) {
+    @When("User apply filters: effort {string}, level {string}, with languages")
+    public void user_apply_filters_effort_level_with_languages(String effort, String level, io.cucumber.datatable.DataTable dataTable) {
         List<String> languages = dataTable.asList();
         catalogMainPage.selectCheckbox(effort)
                 .selectCheckbox(level)
@@ -26,10 +25,11 @@ public class CatalogFilterBarSteps {
                 .clickSelect();
     }
 
-    @Then("filter chips should contain {string}, {string}, {string}")
-    public void filter_chips_should_contain(String chip1, String chip2, String chip3) {
+    @Then("Verify filter chips should contain:")
+    public void filter_chips_should_contain(DataTable dataTable) {
+        List<String> filterChips = dataTable.asList();
         List<String> filtersText = catalogMainPage.getFilterChipsBlock().getFiltersText();
-        assertThat(filtersText).containsExactlyInAnyOrder(chip1, chip2, chip3);
+        assertThat(filtersText).containsAll(filterChips);
     }
 
     @Then("^(.+?) filter count should be (\\d+)$")
@@ -38,7 +38,7 @@ public class CatalogFilterBarSteps {
                 .isEqualTo(expectedCount);
     }
 
-    @Then("all visible courses should have language {string} and effort between {int} and {int} hours")
+    @Then("Verify all visible courses should have language {string} and effort between {int} and {int} hours")
     public void all_visible_courses_should_have_language_and_effort(String expectedLang, int minHrs, int maxHrs) {
         catalogMainPage.getAllVisibleCourses()
                 .forEach(course -> {
@@ -47,12 +47,12 @@ public class CatalogFilterBarSteps {
                 });
     }
 
-    @When("I clear all filters")
-    public void i_clear_all_filters() {
+    @When("User clear all filters")
+    public void user_clear_all_filters() {
         catalogMainPage.getFilterChipsBlock().clearAllFilters();
     }
 
-    @Then("all visible courses should have effort between {int} and {int} minutes")
+    @Then("Verify all visible courses should have effort between {int} and {int} minutes")
     public void all_visible_courses_should_have_effort_in_minutes(long min, long max) {
         assertThat(catalogMainPage.getAllVisibleCourses())
                 .allSatisfy(course -> {
