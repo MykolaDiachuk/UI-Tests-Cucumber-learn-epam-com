@@ -17,8 +17,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import static org.example.demo.utils.selenium.Waiter.waitForElementsToVanish;
-
 
 public class CatalogMainPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger(CatalogMainPage.class);
@@ -78,12 +76,10 @@ public class CatalogMainPage extends BasePage {
 
         //waitForElementsToVanish(courseCards.getElements());
 
-        for (PageElement el : courseCards.getElements()) {
-            Waiter.waitSoftForCondition(() -> el.getElement().isDisplayed());
-        }
+        Waiter.waitSoftForAllElements(courseCards, PageElement::isDisplayed);
 
         try {
-            return courseCards.waitUntilPresent().getElements().stream()
+            return courseCards.getElements().stream()
                     .map(el -> CourseCardParser.parse(el.getElement()))
                     .toList();
         } catch (TimeoutException e) {

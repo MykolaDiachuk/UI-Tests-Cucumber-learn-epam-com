@@ -1,6 +1,7 @@
 package org.example.demo.utils.selenium;
 
 import org.example.demo.elementcore.elements.PageElement;
+import org.example.demo.elementcore.elements.PageElementCollection;
 import org.example.demo.elementcore.factory.WrapperFactory;
 import org.example.demo.pages.CatalogMainPage;
 import org.example.demo.utils.driver.DriverManager;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 import java.util.List;
 import java.util.function.BooleanSupplier;
+import java.util.function.Predicate;
 
 public class Waiter {
     private static final Logger logger = LoggerFactory.getLogger(Waiter.class);
@@ -103,6 +105,23 @@ public class Waiter {
                     .until(driver -> condition.getAsBoolean());
         } catch (TimeoutException e) {
             logger.warn("Condition not met within timeout {}", TIMEOUT);
+        }
+    }
+
+    public static void waitSoftForAllElements(PageElementCollection<PageElement> elements,
+                                              Predicate<PageElement> condition) {
+        try {
+            getFluentWait()
+                    .ignoring(StaleElementReferenceException.class)
+                    .until(driver -> elements.getElements().stream().allMatch(el -> {
+                        try {
+                            return condition.test(el);
+                        } catch (StaleElementReferenceException | NoSuchElementException e) {
+                            return false;
+                        }
+                    }));
+        } catch (TimeoutException e) {
+            logger.warn("Not all elements met the condition within timeout {}", TIMEOUT);
         }
     }
 
